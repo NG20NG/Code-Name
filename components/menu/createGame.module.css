@@ -1,0 +1,92 @@
+.menuContainer {
+  height: 100vh;
+  width: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.card {
+  height: 500px;
+  width: 350px;
+  flex-direction: column;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  background-image: url("../../styles/images/backDark.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.478);
+}
+.cardOptions {
+  width: 90%;
+  height: 80%;
+}
+.nameLangInputs {
+  text-align: center;
+  height: 260px;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  color: white;
+}
+.chooseNameInput {
+  border-radius: 5px;
+  height: 30px;
+  width: 200px;
+  text-align: center;
+  border: none;
+}
+.chooseName,
+.chooseLanguage {
+  font-size: 30px;
+  margin: 10px 0px;
+  text-shadow: 2px 2px black;
+}
+.langFrancais {
+  background-image: url("../../styles/flags/fr.png");
+  background-size: cover;
+}
+.langEnglish {
+  background-image: url("../../styles/flags/ang.jpg");
+  background-size: cover;
+}
+.langFrancais,
+.langEnglish {
+  border-radius: 5px;
+  width: 200px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0px;
+  cursor: pointer;
+  box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.478);
+}
+.langFrancais:hover,
+.langEnglish:hover {
+  outline: 2px solid white;
+}
+.createGameBTNContainer {
+  height: 100px;
+  margin: 25px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.createGameBTN {
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  font-size: 20px;
+  height: 40px;
+  width: 200px;
+  background-color: rgb(0, 153, 255);
+  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.337);
+  transition: 0.3s;
+}
+.createGameBTN:hover {
+  transition: 0.3s;
+  background-color: rgb(27, 164, 255);
+}

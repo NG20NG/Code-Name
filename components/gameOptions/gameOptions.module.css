@@ -1,0 +1,61 @@
+.gameOptionsContainer {
+  width: 600px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.gameOptions {
+  background-image: url("../../styles/images/backDark.jpg");
+  background-size: cover;
+  border-radius: 10px;
+  height: 500px;
+  width: 350px;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.478);
+}
+.h1 {
+  color: white;
+  margin-top: auto;
+  margin-bottom: auto;
+  text-shadow: 2px 2px black;
+  font-size: 28px;
+}
+.createGameBTN,
+.joinGame {
+  border: none;
+  border-radius: 5px;
+  height: 50px;
+  width: 250px;
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  cursor: pointer;
+  color: rgb(7, 10, 35);
+  font-weight: 500;
+  box-shadow: 2px 2px 10px 0px black;
+  outline: 2px solid rgb(0, 0, 0);
+}
+.createGameBTN {
+  background-color: rgb(10, 237, 10);
+  transition: 0.2s;
+}
+.createGameBTN:hover {
+  transition: 0.2s;
+  background-color: rgb(12, 198, 12);
+}
+.joinGame {
+  transition: 0.2s;
+  background-color: rgb(0, 119, 255);
+  margin-bottom: auto;
+}
+.joinGame:hover {
+  transition: 0.2s;
+  background-color: rgb(0, 105, 225);
+}

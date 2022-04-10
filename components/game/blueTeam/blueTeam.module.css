@@ -1,0 +1,62 @@
+.blueTeamPlayersContainer {
+  padding: 10px;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px 0px black;
+  background-image: linear-gradient(
+    to bottom right,
+    rgb(31, 68, 255),
+    rgb(47, 76, 219)
+  );
+}
+.photoNumberContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: auto;
+}
+.photoBlueTeam {
+  height: 90px;
+  width: 120px;
+  border-radius: 10px;
+  background-image: url("./blueTeam.jpg");
+  background-size: 100% 100%;
+}
+.numberBlueTeam {
+  margin-left: 15px;
+  color: white;
+  font-size: 50px;
+}
+.joinBlueTeamContainer {
+  height: 85px;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-top: 10px;
+}
+.joinBlueTeamContainer > div {
+  min-height: 30px;
+  margin: 5px 0px;
+  cursor: pointer;
+}
+.joinBlueTeamBTN,
+.joinSpyMasterBTN {
+  background-color: rgb(255, 225, 0);
+  border-radius: 3px;
+  height: 30px;
+  width: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: large;
+  color: black;
+  box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.611);
+  transition: 0.3s;
+}
+.joinBlueTeamBTN:hover,
+.joinSpyMasterBTN:hover {
+  transition: 0.3s;
+  background-color: rgb(231, 204, 0);
+}
