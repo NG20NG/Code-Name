@@ -1,10 +1,11 @@
 //
 //
 import m from "./createGame.module.css";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { menuOptionsContext } from "../../contexts/changeMenuContext";
 import gsap from "gsap";
 import Link from "next/link";
+import { useRouter } from "next/router";
 //
 //
 //
@@ -12,6 +13,7 @@ import Link from "next/link";
 //
 const menuSelections = () => {
   const { setSwitchOptions } = useContext(menuOptionsContext);
+  const router = useRouter();
   interface Menu {
     name: String;
     language: "french" | "english" | "";
@@ -23,52 +25,56 @@ const menuSelections = () => {
     name: "", // name of the user so u can create a user account
     language: "", // language of the game
     adminName: "", // admin name
-    userID: "null", // users ID so i can fetch a game With the team
     gameLink:
       Math.floor(Math.random() * 9999999999) *
         Math.floor(Math.random() * 9999999999) +
       Math.floor(Math.random() * 9999),
+    createOn: false,
   });
   console.log(menuOptions);
 
   //===============================================================================
   //===============================================================================
+  console.log(menuOptions.adminName.length);
+
   const createGame = async () => {
-    const reqUser = await fetch("http://localhost:3001/users", {
-      method: "POST",
-      body: JSON.stringify({
-        isOn: true,
-        name: menuOptions?.adminName,
-        color: "spectator",
-      }),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await reqUser.json();
-    setMenuOptions((prev: Menu) => ({ ...prev, userID: data?._id }));
-
-    //===============================================================================
-    //===============================================================================
-
-    const reqGame = await fetch("http://localhost:3001/games", {
-      method: "POST",
-      body: JSON.stringify({
-        language: menuOptions.language,
-        adminName: menuOptions.adminName,
-        gameLink: menuOptions.gameLink,
-        team: menuOptions.userID,
-      }),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    });
-    const createGame = await reqGame.json();
-    console.log(createGame);
+    if (menuOptions.adminName === "" || menuOptions.language === "") {
+      console.log("err");
+    } else {
+      setMenuOptions((prev: any) => ({
+        ...prev,
+        createOn: !menuOptions.createOn,
+      }));
+      const reqUser = await fetch("http://localhost:3001/users", {
+        method: "POST",
+        body: JSON.stringify({
+          isOn: true,
+          name: menuOptions?.adminName,
+          color: "spectator",
+        }),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+      const player = await reqUser.json();
+      //======================================================================
+      await fetch("http://localhost:3001/games", {
+        method: "POST",
+        body: JSON.stringify({
+          language: menuOptions.language,
+          adminName: menuOptions.adminName,
+          gameLink: menuOptions.gameLink,
+          team: player?._id,
+        }),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+      router.push("/game/" + menuOptions.gameLink);
+    }
   };
-
   return (
     <div className={m.menuContainer}>
       <div className={m.card}>
@@ -76,7 +82,7 @@ const menuSelections = () => {
         <h1 style={{ color: "white" }}>Code name</h1>
         <div className={m.cardOptions}>
           <div className={m.nameLangInputs}>
-            <div className={m.chooseName}>YOUR NAME</div>
+            <div className={m.chooseName}>Choose Name</div>
             <input
               className={m.chooseNameInput}
               onChange={(e) => {
@@ -95,8 +101,7 @@ const menuSelections = () => {
                   ...prev,
                   language: "french",
                 }));
-
-                gsap.to("." + m.langFrancais, { height: "60px" });
+                gsap.to("." + m.langFrancais, { height: "100px" });
                 gsap.to("." + m.langEnglish, { height: "30px" });
               }}
             ></div>
@@ -107,16 +112,14 @@ const menuSelections = () => {
                   ...prev,
                   language: "english",
                 }));
-                gsap.to("." + m.langEnglish, { height: "60px" });
+                gsap.to("." + m.langEnglish, { height: "100px" });
                 gsap.to("." + m.langFrancais, { height: "30px" });
               }}
             ></div>
           </div>
           <div className={m.createGameBTNContainer}>
             <button onClick={() => createGame()} className={m.createGameBTN}>
-              {/* <Link href={"/game/" + menuOptions.gameLink}> */}
-              <a>Create game</a>
-              {/* </Link> */}
+              Create game
             </button>
           </div>
         </div>

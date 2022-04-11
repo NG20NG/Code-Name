@@ -21,11 +21,11 @@
 }
 .cardOptions {
   width: 90%;
-  height: 80%;
+  height: auto;
 }
 .nameLangInputs {
   text-align: center;
-  height: 260px;
+  height: auto;
   flex-direction: column;
   display: flex;
   align-items: center;
@@ -69,8 +69,8 @@
   outline: 2px solid white;
 }
 .createGameBTNContainer {
-  height: 100px;
-  margin: 25px 0px;
+  height: auto;
+  margin: 15px 0px;
   display: flex;
   justify-content: center;
   align-items: center;
