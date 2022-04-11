@@ -22,16 +22,43 @@ const menuSelections = () => {
   const [menuOptions, setMenuOptions] = useState<Menu | any>({
     name: "", // name of the user so u can create a user account
     language: "", // language of the game
-    game: "", // game ID so i can fetch the users with hes game
     adminName: "", // admin name
-    gameID: "null",
+    userID: "null", // users ID so i can fetch a game With the team
+    gameLink:
+      Math.floor(Math.random() * 9999999999) *
+        Math.floor(Math.random() * 9999999999) +
+      Math.floor(Math.random() * 9999),
   });
+  console.log(menuOptions);
+
+  //===============================================================================
+  //===============================================================================
   const createGame = async () => {
+    const reqUser = await fetch("http://localhost:3001/users", {
+      method: "POST",
+      body: JSON.stringify({
+        isOn: true,
+        name: menuOptions?.adminName,
+        color: "spectator",
+      }),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await reqUser.json();
+    setMenuOptions((prev: Menu) => ({ ...prev, userID: data?._id }));
+
+    //===============================================================================
+    //===============================================================================
+
     const reqGame = await fetch("http://localhost:3001/games", {
       method: "POST",
       body: JSON.stringify({
         language: menuOptions.language,
         adminName: menuOptions.adminName,
+        gameLink: menuOptions.gameLink,
+        team: menuOptions.userID,
       }),
       headers: {
         Accept: "application/json",
@@ -39,24 +66,7 @@ const menuSelections = () => {
       },
     });
     const createGame = await reqGame.json();
-    setMenuOptions((prev: Menu) => ({ ...prev, gameID: createGame?._id }));
-
-    if (createGame && menuOptions.gameID !== "null") {
-      const reqUser = await fetch("http://localhost:3001/users", {
-        method: "POST",
-        body: JSON.stringify({
-          isOn: true,
-          name: menuOptions?.adminName,
-          game: menuOptions?.gameID,
-        }),
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
-      const createUser = await reqUser.json();
-      console.log(createUser);
-    }
+    console.log(createGame);
   };
 
   return (
@@ -104,9 +114,9 @@ const menuSelections = () => {
           </div>
           <div className={m.createGameBTNContainer}>
             <button onClick={() => createGame()} className={m.createGameBTN}>
-              <Link href="/game">
-                <a>Create game</a>
-              </Link>
+              {/* <Link href={"/game/" + menuOptions.gameLink}> */}
+              <a>Create game</a>
+              {/* </Link> */}
             </button>
           </div>
         </div>

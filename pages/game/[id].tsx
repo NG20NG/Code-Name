@@ -2,7 +2,7 @@
 //
 import g from "../../components/game/globalGameStyle.module.css";
 //
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { playersGame } from "../../contexts/changeMenuContext";
 //
 import RedTeam from "../../components/game/redTeam/redTeam";
@@ -47,7 +47,7 @@ const Game = ({ links }: any) => {
   const getGameTeam = async () => {
     const res = await fetch("http://localhost:3001/games");
     const dataTeam = await res.json();
-    setGetTeammate(dataTeam[0]);
+    setGetTeammate(dataTeam[0]?.team);
   };
   //==========================================================
   const getWords = async () => {
@@ -56,41 +56,46 @@ const Game = ({ links }: any) => {
     setGetWordsState(data[0].english[0]);
   };
   //==========================================================
+  //==========================================================
+  //==========================================================
+  //==========================================================
+  //==========================================================
+  //==========================================================
   useEffect(() => {
     getWords();
     getGameTeam();
   }, []);
-  //==========================================================
-
   return (
     <div className={g.game}>
-      <div className={g.gameContainer}>
-        <div className={g.redTeam}>
-          <RedTeam players={{ getTeammates }} />
-        </div>
-        <div className={g.gameBoard}>
-          <div className={g.gameCardsContainer}>
-            <div>
-              {getWordsState === undefined
-                ? console.log({ message: "err fetching the data" })
-                : getWordsState?.map((e: any, index: number) => {
-                    return (
-                      <div key={index} className={g.gameCards}>
-                        <div className={g.selectCardBTN}>
-                          <div></div>
+      <playersGame.Provider value={{}}>
+        <div className={g.gameContainer}>
+          <div className={g.redTeam}>
+            <RedTeam players={{ getTeammates }} />
+          </div>
+          <div className={g.gameBoard}>
+            <div className={g.gameCardsContainer}>
+              <div>
+                {getWordsState === undefined
+                  ? console.log({ message: "err fetching the data" })
+                  : getWordsState?.map((e: any, index: number) => {
+                      return (
+                        <div key={index} className={g.gameCards}>
+                          <div className={g.selectCardBTN}>
+                            <div></div>
+                          </div>
+                          <div className={g.playerSuggestionBTN}></div>
+                          <div className={g.showWordBTN}>{e}</div>
                         </div>
-                        <div className={g.playerSuggestionBTN}></div>
-                        <div className={g.showWordBTN}>{e}</div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+              </div>
             </div>
           </div>
+          <div className={g.blueTeam}>
+            <BlueTeam players={getTeammates} />
+          </div>
         </div>
-        <div className={g.blueTeam}>
-          <BlueTeam players={getTeammates} />
-        </div>
-      </div>
+      </playersGame.Provider>
     </div>
   );
 };

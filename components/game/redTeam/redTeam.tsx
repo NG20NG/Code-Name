@@ -7,14 +7,18 @@ import { useState } from "react";
 // post the Players inside of the game and change hes team color
 //
 const RedTeam = ({ players }: any) => {
-  console.log(players.getTeammates.team);
+  if (players?.getTeammates === undefined) {
+    console.log("nothing");
+  } else {
+    console.log(players.getTeammates);
+  }
 
-  const [ifJoin, setIfJoin] = useState<boolean>();
-  const joinRedTeam = (id: String) => {
-    if (id === "redTeamID") {
-      console.log(123);
-    }
-  };
+  const [ifJoin, setIfJoin] = useState<any>({
+    redPlayers: false,
+    spyMaster: false,
+    inGame: false,
+  });
+
   return (
     <div className={red.redTeamPlayersContainer}>
       <div className={red.redTeamPlayersCard}>
@@ -25,18 +29,15 @@ const RedTeam = ({ players }: any) => {
         <div className={red.joinRedTeamContainer}>
           <div>
             {1 !== 1 ? (
-              ifJoin
-            ) : (
-              <div
-                className={red.joinRedTeamBTN}
-                onClick={() => joinRedTeam("redTeamID")}
-              >
-                join red team
+              <div className={red.redTeamPlayersJoinBTNContainer}>
+                <div className={red.redTeamJoinBTNPlayers}>{ifJoin.player}</div>
               </div>
+            ) : (
+              <div className={red.joinRedTeamBTN}>join red team</div>
             )}
           </div>
           <div className={red.joinSpyMasterContainer}>
-            {1 !== 1 ? (
+            {ifJoin.ifJoin === "spyMaster" || ifJoin.inGame === true ? (
               "123"
             ) : (
               <div className={red.joinSpyMasterBTN}>join spy master</div>
